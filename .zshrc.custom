@@ -1,0 +1,66 @@
+bindkey -e
+
+export XDG_CONFIG_HOME=$HOME/.config
+export EDITOR=vim
+
+setopt correct
+
+alias l='ls -lha'
+alias vim=nvim
+alias jq='nocorrect jq'
+alias gb='git branch | fzf-tmux -d 15'
+alias gdc='git diff --cached'
+
+# fzf and ripgrep
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+
+# word区切り
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+# 保管で大文字を区別しない
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# 履歴ファイルの保存先
+export HISTFILE=${HOME}/.zsh_history
+# メモリに保存される履歴の件数
+export HISTSIZE=1000
+# 履歴ファイルに保存される履歴の件数
+export SAVEHIST=100000
+# 重複を記録しない
+setopt hist_ignore_dups
+# 開始と終了を記録
+setopt EXTENDED_HISTORY
+# history search
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
+
+# .ssh/configに指定したホストをsshなどの補完候補に
+hosts=( ${(@)${${(M)${(s:# :)${(zj:# :)${(Lf)"$([[ -f ~/.ssh/config ]] && < ~/.ssh/config)"}%%\#* }}##host(|name) *}#host(|name) }/\*} )
+zstyle ':completion:*:hosts' hosts $hosts
+
+
+if [ -d $HOME/.anyenv ]; then
+  export PATH="$HOME/.anyenv/bin:$PATH"
+  eval "$(anyenv init -)"
+fi
+
+function v() {
+  local filepath=$(rg -n "$@" | fzf | awk -F: '{print "+" $2 " \047" $1 "\047"}')
+  test -n "$filepath" && eval "vim $filepath"
+}
+
+function ghq-fzf() {
+  local dir=$(ghq list | fzf)
+  if [ -n "$dir" ]; then
+    BUFFER="cd $(ghq root)/$dir"
+    zle accept-line
+  fi
+}
+zle -N ghq-fzf
+bindkey '^]' ghq-fzf
+
+
+function gpr () {
+  local repo=$(git config remote.origin.url | awk -F'[/:]' '{printf "%s/%s/%s", $(NF-2), $(NF-1), $NF}' | awk -F. '{print $1}')
+  local url="https://$repo/compare/$(current_branch)?expand=1"
+  echo "$url"
+}

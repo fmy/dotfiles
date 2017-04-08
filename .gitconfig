@@ -1,10 +1,7 @@
+[ghq]
+root = ~/dev/src
+[grep]
+	lineNumber = true
 [user]
-        name = Fumiya KARASAWA
-        email = krswfmy@gmail.com
-[color]
-        status = auto
-        branch = auto
-        ui = true
-[core]
-        editor = vim -c \"set fenc=utf-8\"
-
+	name = Fumiya Karasawa
+	email = krswfmy@gmail.com
