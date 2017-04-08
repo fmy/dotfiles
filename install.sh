@@ -28,7 +28,7 @@ fi
 export SHELL=$(which zsh)
 
 # copy dotfiles
-for file in .zshrc .zshrc.custom .zplug .config .gitconfig .tmux.conf .ctags
+for file in .zshrc .zshrc.path .zshrc.custom .zplug .config .gitconfig .tmux.conf .ctags
 do
   rm -rf $HOME/$file
   ln -s $PWD/$file $HOME/$file

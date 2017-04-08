@@ -20,5 +20,6 @@ if ! zplug check; then
 fi
 zplug load
 
+[ -f ~/.zshrc.path ] && source ~/.zshrc.path
 [ -f ~/.zshrc.custom ] && source ~/.zshrc.custom
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

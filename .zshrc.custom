@@ -37,12 +37,6 @@ bindkey '^N' history-beginning-search-forward
 hosts=( ${(@)${${(M)${(s:# :)${(zj:# :)${(Lf)"$([[ -f ~/.ssh/config ]] && < ~/.ssh/config)"}%%\#* }}##host(|name) *}#host(|name) }/\*} )
 zstyle ':completion:*:hosts' hosts $hosts
 
-
-if [ -d $HOME/.anyenv ]; then
-  export PATH="$HOME/.anyenv/bin:$PATH"
-  eval "$(anyenv init -)"
-fi
-
 function v() {
   local filepath=$(rg -n "$@" | fzf | awk -F: '{print "+" $2 " \047" $1 "\047"}')
   test -n "$filepath" && eval "vim $filepath"
