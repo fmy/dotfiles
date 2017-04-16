@@ -10,9 +10,11 @@ brew 'git'
 brew 'fzf'
 brew 'ghq'
 brew 'htop'
+brew 'imagemagick'
 brew 'jq'
 brew 'mas'
 brew 'mongodb', restart_service: true
+brew 'nkf'
 brew 'peco'
 brew 'reattach-to-user-namespace'
 brew 'ripgrep'
@@ -22,7 +24,6 @@ brew 'watchman'
 brew 'zsh'
 brew 'neovim/neovim/neovim'
 brew 'sanemat/font/ricty', args: ['with-powerline']
-cask '1password'
 cask 'alfred'
 cask 'android-studio'
 cask 'atom'
@@ -38,6 +39,8 @@ cask 'iterm2'
 cask 'java'
 cask 'shiftit'
 cask 'slack'
+cask 'trailer'
+mas '1Password', id: 443987910
 mas 'iMovie', id: 408981434
 mas 'Keynote', id: 409183694
 mas 'Kobito', id: 896624060
