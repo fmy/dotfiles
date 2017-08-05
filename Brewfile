@@ -9,15 +9,18 @@ tap "sanemat/font"
 cask "xquartz"
 brew "autossh"
 brew "ctags"
+brew "elm"
 brew "git"
 brew "fzf"
 brew "ghq"
 brew "heroku"
 brew "htop"
+brew "hub"
 brew "imagemagick"
 brew "jq"
 brew "mas"
 brew "mongodb", restart_service: true
+brew "neovim"
 brew "nkf"
 brew "peco"
 brew "reattach-to-user-namespace"
@@ -28,7 +31,6 @@ brew "watchman"
 brew "wget"
 brew "yarn"
 brew "zsh"
-brew "neovim/neovim/neovim"
 brew "sanemat/font/ricty", args: ["with-powerline"]
 cask "alfred"
 cask "android-studio"
@@ -59,6 +61,7 @@ cask "vagrant"
 cask "virtualbox"
 cask "xld"
 mas "1Password", id: 443987910
+mas "GIPHY CAPTURE", id: 668208984
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Kobito", id: 896624060
