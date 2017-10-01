@@ -56,7 +56,7 @@ bindkey '^]' ghq-fzf
 
 
 function gpr () {
-  local repo=$(git config remote.origin.url | awk -F'[/:]' '{printf "%s/%s/%s", $(NF-2), $(NF-1), $NF}' | awk -F. '{print $1}')
+  local repo=$(git config remote.origin.url | awk -F'[/:]' '{printf "%s/%s/%s", $(NF-2), $(NF-1), $NF}' | awk -F'.git' '{print $1}')
   local url="https://$repo/compare/$(current_branch)?expand=1"
   echo "$url"
 }

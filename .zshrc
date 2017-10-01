@@ -11,6 +11,7 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "rupa/z", use:"*.sh"
 zplug "b4b4r07/emoji-cli"
+zplug "greymd/tmux-xpanes"
 
 if ! zplug check; then
     printf "Install? [y/N]: "
