@@ -5,3 +5,5 @@ root = ~/dev/src
 [user]
 	name = Fumiya Karasawa
 	email = krswfmy@gmail.com
+[commit]
+	template = /Users/fmy/.gitmessage.txt

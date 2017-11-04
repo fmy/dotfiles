@@ -7,6 +7,9 @@ export EDITOR=nvim
 
 setopt correct
 
+# hub
+alias git=hub
+
 alias l='ls -lha'
 alias vim=nvim
 alias jq='nocorrect jq'
