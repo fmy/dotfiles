@@ -11,10 +11,13 @@ setopt correct
 alias git=hub
 
 alias l='ls -lha'
+alias vi=nvim
 alias vim=nvim
 alias jq='nocorrect jq'
 alias gb='git branch | fzf-tmux -d 15'
 alias gdc='git diff --cached'
+alias ggg='git reset --soft HEAD~'
+alias gbd='git branch --merged | grep -v \* | grep -v master | xargs -I % git branch -d %'
 
 # fzf and ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
@@ -38,6 +41,16 @@ setopt EXTENDED_HISTORY
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
 
+# commandline stacks
+show_buffer_stack() {
+  POSTDISPLAY="
+stack: $LBUFFER"
+  zle push-line-or-edit
+}
+zle -N show_buffer_stack
+setopt noflowcontrol
+bindkey '^Q' show_buffer_stack
+
 # .ssh/configに指定したホストをsshなどの補完候補に
 hosts=( ${(@)${${(M)${(s:# :)${(zj:# :)${(Lf)"$([[ -f ~/.ssh/config ]] && < ~/.ssh/config)"}%%\#* }}##host(|name) *}#host(|name) }/\*} )
 zstyle ':completion:*:hosts' hosts $hosts
@@ -59,7 +72,7 @@ bindkey '^]' ghq-fzf
 
 
 function gpr () {
-  local repo=$(git config remote.origin.url | awk -F'[/:]' '{printf "%s/%s/%s", $(NF-2), $(NF-1), $NF}' | awk -F'.git' '{print $1}')
-  local url="https://$repo/compare/$(current_branch)?expand=1"
+  local repo=$(git config remote.origin.url | awk -F'[@/:]' '{printf "%s/%s/%s", $(NF-2), $(NF-1), $NF}' | awk -F'\\.git' '{print $1}')
+  local url="https://$repo/compare/master...$(current_branch)?expand=1"
   echo "$url"
 }

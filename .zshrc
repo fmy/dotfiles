@@ -5,6 +5,7 @@ zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/brew", from:oh-my-zsh
 zplug "plugins/brew-cask", from:oh-my-zsh
 zplug "plugins/osx", from:oh-my-zsh
+zplug "plugins/gpg-agent", from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
