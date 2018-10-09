@@ -5,5 +5,9 @@ root = ~/dev/src
 [user]
 	name = Fumiya Karasawa
 	email = krswfmy@gmail.com
+	signingkey = 7A5104049040AE74
 [commit]
 	template = /Users/fmy/.gitmessage.txt
+	gpgsign = true
+[gpg]
+	program = /usr/local/bin/gpg
