@@ -11,3 +11,8 @@ root = ~/dev/src
 	gpgsign = true
 [gpg]
 	program = /usr/local/bin/gpg
+[log]
+	follow = false
+
+[push]
+	default = current

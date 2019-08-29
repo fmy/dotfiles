@@ -39,15 +39,31 @@ Plug 'benekastah/neomake'
 Plug 'benjie/neomake-local-eslint.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'godlygeek/tabular'
+Plug 'jacoborus/tender.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-operator-user'
+Plug 'kana/vim-operator-replace'
+Plug 'osyo-manga/vim-textobj-multiblock'
+Plug 'ruanyl/vim-gh-line'
 " languages
 Plug 'editorconfig/editorconfig-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'moll/vim-node'
 Plug 'fatih/vim-go'
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 Plug 'zah/nim.vim'
 Plug 'elmcast/elm-vim'
+Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'Shougo/denite.nvim'
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'lighttiger2505/deoplete-vim-lsp'
+" slack memo
+Plug 'mattn/webapi-vim'
+Plug 'tsuyoshiwada/slack-memo-vim'
+
 
 let g:make = 'gmake'
 if exists('make')
@@ -61,6 +77,7 @@ if filereadable(expand("~/.config/nvim/local_bundles.vim"))
 endif
 
 call plug#end()
+
 
 " Required
 filetype plugin indent on
@@ -129,8 +146,13 @@ set list
 set listchars=tab:>-,trail:-,nbsp:%
 
 let no_buffers_menu=1
+if (has("termguicolors"))
+ set termguicolors
+endif
+
 if !exists('g:not_finish_vimplug')
-  " colorscheme molokai
+  syntax enable
+  " colorscheme tender
 endif
 
 set mousemodel=popup
@@ -259,7 +281,7 @@ endfunction
 "*****************************************************************************
 " lightline settings
 let g:lightline = {
-  \ 'colorscheme': 'wombat',
+  \ 'colorscheme': 'tender',
   \ 'mode_map': {'c': 'NORMAL'},
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
@@ -329,6 +351,7 @@ nmap     <Space>g [git]
 nnoremap <silent> [git]st  :<C-u>Gstatus<CR>
 nnoremap <silent> [git]d   :<C-u>Gdiff<CR>
 nnoremap <silent> [git]b   :<C-u>Gblame<CR>
+nnoremap <silent> [git]h   v:Gbrowse<CR>
 
 "*****************************************************************************
 "" deoplete
@@ -381,3 +404,36 @@ augroup vimrc-auto-cursorline
     endif
   endfunction
 augroup END
+
+"*****************************************************************************
+"" osyo-manga/vim-textobj-multiblock
+"*****************************************************************************
+omap ab <Plug>(textobj-multiblock-a)
+omap ib <Plug>(textobj-multiblock-i)
+vmap ab <Plug>(textobj-multiblock-a)
+vmap ib <Plug>(textobj-multiblock-i)
+
+"*****************************************************************************
+"" osyo-manga/vim-textobj-multiblock
+"*****************************************************************************
+nmap s <Plug>(operator-replace)
+
+
+"*****************************************************************************
+"" vim-lsp
+"*****************************************************************************
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript', 'typescript.tsx'],
+        \ })
+endif
+
+
+" load local settings
+if filereadable(expand('~/.config/nvim/local.vim'))
+  source ~/.config/nvim/local.vim
+endif
+

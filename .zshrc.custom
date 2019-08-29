@@ -7,17 +7,29 @@ export EDITOR=nvim
 
 setopt correct
 
+# ssh-add before ssh
+alias ssh='ssh-add;ssh'
+
 # hub
 alias git=hub
 
 alias l='ls -lha'
 alias vi=nvim
 alias vim=nvim
+alias sed='gsed'
 alias jq='nocorrect jq'
 alias gb='git branch | fzf-tmux -d 15'
 alias gdc='git diff --cached'
 alias ggg='git reset --soft HEAD~'
 alias gbd='git branch --merged | grep -v \* | grep -v master | xargs -I % git branch -d %'
+alias gbdd='git checkout -q master && \
+  git for-each-ref refs/heads/ "--format=%(refname:short)" | \
+  while read branch; do
+    mergeBase=$(git merge-base master $branch) && \
+      [[ $(git cherry master $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == "-"* ]] && \
+      git branch -D $branch;
+  done'
+alias curltime='curl -s -o /dev/null -w  "%{time_starttransfer}\n"'
 
 # fzf and ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
@@ -41,15 +53,15 @@ setopt EXTENDED_HISTORY
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
 
-# commandline stacks
-show_buffer_stack() {
-  POSTDISPLAY="
-stack: $LBUFFER"
-  zle push-line-or-edit
+# background foreground
+function run-fglast {
+  zle push-input
+  BUFFER="fg %"
+  zle accept-line
 }
-zle -N show_buffer_stack
-setopt noflowcontrol
-bindkey '^Q' show_buffer_stack
+
+zle -N run-fglast
+bindkey "^Q" run-fglast
 
 # .ssh/configに指定したホストをsshなどの補完候補に
 hosts=( ${(@)${${(M)${(s:# :)${(zj:# :)${(Lf)"$([[ -f ~/.ssh/config ]] && < ~/.ssh/config)"}%%\#* }}##host(|name) *}#host(|name) }/\*} )
@@ -74,5 +86,18 @@ bindkey '^]' ghq-fzf
 function gpr () {
   local repo=$(git config remote.origin.url | awk -F'[@/:]' '{printf "%s/%s/%s", $(NF-2), $(NF-1), $NF}' | awk -F'\\.git' '{print $1}')
   local url="https://$repo/compare/master...$(current_branch)?expand=1"
-  echo "$url"
+  open "$url"
 }
+
+eval "$(jira --completion-script-zsh)"
+
+function jira-fzf() {
+  local id=$(jira list -s created | fzf | awk -F: '{print $1}')
+  if [ -n "$id" ]; then
+    local action=$(echo -n "view\nbrowse\ntake\nstart\nstop\nresolve\nclose\nreopen" | fzf)
+    eval "jira ${action} ${id}"
+    zle accept-line
+  fi
+}
+zle -N jira-fzf
+bindkey '^j' jira-fzf
