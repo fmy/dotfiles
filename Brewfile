@@ -4,14 +4,13 @@ tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
-tap "homebrew/dupes"
 tap "homebrew/services"
 tap "neovim/neovim"
 tap "rcmdnk/file"
 tap "sanemat/font"
 brew "amazon-ecs-cli"
-brew "openssl"
 brew "gdbm"
+brew "openssl"
 brew "python"
 brew "asciinema"
 brew "autossh"
@@ -35,7 +34,6 @@ brew "git"
 brew "gnu-getopt"
 brew "gnu-sed"
 brew "gnupg"
-brew "gpg-agent"
 brew "htop"
 brew "hub"
 brew "imagemagick"
@@ -65,7 +63,6 @@ brew "tig"
 brew "tmux"
 brew "tree"
 brew "watchman"
-brew "weechat", args: ["with-perl", "with-python@2", "with-ruby"]
 brew "wget"
 brew "yarn"
 brew "zsh"
@@ -81,7 +78,6 @@ cask "blisk"
 cask "browserstacklocal"
 cask "caffeine"
 cask "cmd-eikana"
-cask "cooviewer"
 cask "cyberduck"
 cask "docker"
 cask "dropbox"
@@ -100,7 +96,6 @@ cask "iterm2"
 cask "java"
 cask "karabiner-elements"
 cask "macwinzipper"
-cask "metabase-app"
 cask "mongodb-compass-readonly"
 cask "movist"
 cask "ngrok"
@@ -118,18 +113,17 @@ cask "the-unarchiver"
 cask "trailer"
 cask "tunnelbear"
 cask "vagrant"
-cask "virtualbox"
 cask "visual-studio-code"
 cask "wireshark"
 cask "xld"
 cask "xquartz"
 mas "1Password", id: 443987910
-mas "Be Focused", id: 973134470
+mas "GarageBand", id: 682658836
 mas "GIPHY CAPTURE", id: 668208984
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
-mas "Kobito", id: 896624060
 mas "LINE", id: 539883307
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
 mas "Switch", id: 1087079310
-mas "Todoist", id: 585829637
 mas "Xcode", id: 497799835

@@ -27,6 +27,10 @@ if [ "$shell" != "$(which zsh)" ]; then
 fi
 export SHELL=$(which zsh)
 
+# iterm2 shell integration
+curl -L https://iterm2.com/shell_integration/zsh \
+-o ~/.iterm2_shell_integration.zsh
+
 # copy dotfiles
 for file in .zshrc .zshrc.path .zshrc.custom .zplug .config .gitconfig .tmux.conf .ctags
 do

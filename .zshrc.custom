@@ -22,13 +22,16 @@ alias gb='git branch | fzf-tmux -d 15'
 alias gdc='git diff --cached'
 alias ggg='git reset --soft HEAD~'
 alias gbd='git branch --merged | grep -v \* | grep -v master | xargs -I % git branch -d %'
-alias gbdd='git checkout -q master && \
+alias gbdd='() { \
+  base=${1:-"master"}
+  git checkout -q $base && \
   git for-each-ref refs/heads/ "--format=%(refname:short)" | \
   while read branch; do
-    mergeBase=$(git merge-base master $branch) && \
-      [[ $(git cherry master $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == "-"* ]] && \
-      git branch -D $branch;
-  done'
+    mergeBase=$(git merge-base $base $branch) && \
+    [[ $(git cherry $base $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == "-"* ]] && \
+    git branch -D $branch;
+  done
+}'
 alias curltime='curl -s -o /dev/null -w  "%{time_starttransfer}\n"'
 
 # fzf and ripgrep
@@ -72,6 +75,11 @@ function v() {
   test -n "$filepath" && eval "vim $filepath"
 }
 
+function s() {
+  local filepath=$(git status -s | fzf | awk '{print $2}')
+  test -n "$filepath" && eval "vim $filepath"
+}
+
 function ghq-fzf() {
   local dir=$(ghq list | fzf)
   if [ -n "$dir" ]; then
@@ -88,16 +96,3 @@ function gpr () {
   local url="https://$repo/compare/master...$(current_branch)?expand=1"
   open "$url"
 }
-
-eval "$(jira --completion-script-zsh)"
-
-function jira-fzf() {
-  local id=$(jira list -s created | fzf | awk -F: '{print $1}')
-  if [ -n "$id" ]; then
-    local action=$(echo -n "view\nbrowse\ntake\nstart\nstop\nresolve\nclose\nreopen" | fzf)
-    eval "jira ${action} ${id}"
-    zle accept-line
-  fi
-}
-zle -N jira-fzf
-bindkey '^j' jira-fzf
