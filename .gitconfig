@@ -1,5 +1,5 @@
 [ghq]
-root = ~/dev/src
+root = ~/src
 [grep]
 	lineNumber = true
 [user]
@@ -8,7 +8,7 @@ root = ~/dev/src
 	signingkey = 7A5104049040AE74
 [commit]
 	template = /Users/fmy/.gitmessage.txt
-	gpgsign = true
+	gpgsign = false
 [gpg]
 	program = /usr/local/bin/gpg
 [log]

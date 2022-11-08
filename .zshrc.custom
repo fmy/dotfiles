@@ -19,6 +19,7 @@ alias vim=nvim
 alias sed='gsed'
 alias jq='nocorrect jq'
 alias gb='git branch | fzf-tmux -d 15'
+alias gl="git branch --set-upstream-to=origin/$(current_branch) $(current_branch);git pull"
 alias gdc='git diff --cached'
 alias ggg='git reset --soft HEAD~'
 alias gbd='git branch --merged | grep -v \* | grep -v master | xargs -I % git branch -d %'
@@ -32,7 +33,10 @@ alias gbdd='() { \
     git branch -D $branch;
   done
 }'
-alias curltime='curl -s -o /dev/null -w  "%{time_starttransfer}\n"'
+alias curltime='curl -w "@$HOME/.curl-format.txt" -s -o /dev/null '
+
+alias ec2-prod='aws ssm start-session --target i-0082bd2d7259086c7 --profile meetsone-prod'
+alias ec2-dev='aws ssm start-session --target i-0bd2d6c8edddffeb3 --profile meetsone-dev'
 
 # fzf and ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
@@ -77,7 +81,7 @@ function v() {
 
 function s() {
   local filepath=$(git status -s | fzf | awk '{print $2}')
-  test -n "$filepath" && eval "vim $filepath"
+  test -n "$filepath" && eval "vim '$filepath'"
 }
 
 function ghq-fzf() {
@@ -91,8 +95,18 @@ zle -N ghq-fzf
 bindkey '^]' ghq-fzf
 
 
-function gpr () {
+function pr () {
   local repo=$(git config remote.origin.url | awk -F'[@/:]' '{printf "%s/%s/%s", $(NF-2), $(NF-1), $NF}' | awk -F'\\.git' '{print $1}')
   local url="https://$repo/compare/master...$(current_branch)?expand=1"
   open "$url"
 }
+
+# enhancd
+source $ZPLUG_HOME/repos/b4b4r07/enhancd/init.sh
+if zplug check b4b4r07/enhancd; then
+    # setting if enhancd is available
+    export ENHANCD_FILTER=fzf-tmux
+fi
+
+# asdf
+. $(brew --prefix asdf)/libexec/asdf.sh

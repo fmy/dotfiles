@@ -1,4 +1,5 @@
 /.config/*
 !/.config/nvim/
 /.config/nvim/*
-!/.config/nvim/init.vim
+!/.config/nvim/init.lua
+!/.config/nvim/lua

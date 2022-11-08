@@ -1,7 +1,11 @@
-source ~/.zplug/init.zsh
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+export ZPLUG_HOME=/opt/homebrew/opt/zplug
+source $ZPLUG_HOME/init.zsh
 
 zplug 'themes/ys', from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/svn", from:oh-my-zsh
 zplug "plugins/brew", from:oh-my-zsh
 zplug "plugins/brew-cask", from:oh-my-zsh
 zplug "plugins/osx", from:oh-my-zsh
@@ -24,4 +28,9 @@ zplug load
 
 [ -f ~/.zshrc.path ] && source ~/.zshrc.path
 [ -f ~/.zshrc.custom ] && source ~/.zshrc.custom
+[ -f ~/.zshrc.env ] && source ~/.zshrc.env
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
