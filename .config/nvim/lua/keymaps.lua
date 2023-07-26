@@ -48,12 +48,13 @@ keymap("n", "<Space>tt", ":<C-u>:TestNearest<CR>", opts)
 keymap("n", "<Space>ta", ":<C-u>:TestFile<CR>", opts)
 
 -- git fugitive
-keymap("n", "<Space>gst", ":<C-u>Gstatus<CR>", opts)
-keymap("n", "<Space>gd", ":<C-u>Gdiff<CR>", opts)
-keymap("n", "<Space>gb", ":<C-u>Git blame<CR>", opts)
-keymap("n", "<Space>gh", "v:GBrowse<CR>", opts)
+keymap("n", "<Space>gst", ":Gstatus<CR>", opts)
+keymap("n", "<Space>gd", ":Gdiff<CR>", opts)
+keymap("n", "<Space>gb", ":Git blame<CR>", opts)
+keymap("n", "<Space>gh", ":GBrowse<CR>", opts)
 
 -- telescope
+require('telescope').load_extension('fzf')
 local builtin = require('telescope.builtin')
 local extensions = require('telescope').extensions
 vim.keymap.set("n", "<Space>fs", builtin.grep_string, opts)

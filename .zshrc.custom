@@ -79,6 +79,11 @@ function v() {
   test -n "$filepath" && eval "vim $filepath"
 }
 
+function vg() {
+  local filepath=$(git grep -n "$@" | fzf | awk -F: '{print "+" $2 " \047" $1 "\047"}')
+  test -n "$filepath" && eval "vim $filepath"
+}
+
 function s() {
   local filepath=$(git status -s | fzf | awk '{print $2}')
   test -n "$filepath" && eval "vim '$filepath'"
@@ -108,5 +113,7 @@ if zplug check b4b4r07/enhancd; then
     export ENHANCD_FILTER=fzf-tmux
 fi
 
-# asdf
-. $(brew --prefix asdf)/libexec/asdf.sh
+# edit command line with vim
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^T' edit-command-line

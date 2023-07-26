@@ -24,12 +24,22 @@ set updatetime=500
 highlight LspReferenceText  cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
 highlight LspReferenceRead  cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
 highlight LspReferenceWrite cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
-augroup lsp_document_highlight
-  autocmd!
-  autocmd CursorHold,CursorHoldI * lua vim.lsp.buf.document_highlight()
-  autocmd CursorMoved,CursorMovedI * lua vim.lsp.buf.clear_references()
-augroup END
 ]]
+
+local function on_attach(client, bufnr)
+  -- Find the clients capabilities
+  local cap = client.resolved_capabilities
+
+  -- Only highlight if compatible with the language
+  if cap.document_highlight then
+    vim.cmd('augroup augroup lsp_document_highlight')
+    vim.cmd('autocmd!')
+    vim.cmd('autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()')
+    vim.cmd('autocmd CursorMovedI * lua vim.lsp.buf.clear_references()')
+    vim.cmd('augroup END')
+  end
+end
+require('lspconfig').tsserver.setup({on_attach = on_attach})
 
 -- completion (hrsh7th/nvim-cmp)
 local cmp = require("cmp")
@@ -50,7 +60,7 @@ cmp.setup({
     ['<C-l>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm { select = true },
-    ['<Tab>'] = cmp.mapping.confirm({ select = true })
+    -- ['<Tab>'] = cmp.mapping.confirm({ select = true })
   }),
   experimental = {
     ghost_text = true,
@@ -61,3 +71,6 @@ cmp.setup({
 vim.cmd [[
 hi NormalFloat guibg=#495057
 ]]
+
+
+-- method textDocument/documentHighlight

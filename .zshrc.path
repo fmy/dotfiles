@@ -21,3 +21,17 @@ export PATH=${PATH}:/usr/local/go/bin
 export GOPATH=${HOME}/dev
 export PATH=${PATH}:${GOPATH}/bin
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+# mysql
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+# Wasmer
+export WASMER_DIR="/Users/fmy/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
+
+# enhancd
+source ~/.enhancd/init.sh
+
+# ec2
+alias ec2-dev="aws ssm start-session --target i-0bd2d6c8edddffeb3 --profile meetsone-dev"
+AWS_DEFAULT_REGION=ap-northeast-1

@@ -9,3 +9,12 @@ This dotfiles are ready for Mac only.
 - neovim
   - vimplug
 - tmux
+
+
+# getting started
+
+```
+git submodule init
+git submodule update
+./install.sh
+```

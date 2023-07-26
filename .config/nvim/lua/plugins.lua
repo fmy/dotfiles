@@ -23,6 +23,7 @@ return require('packer').startup({function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   -- git
   use 'tpope/vim-fugitive' -- Gstatusなど
@@ -46,7 +47,7 @@ return require('packer').startup({function(use)
   use "hrsh7th/vim-vsnip"
   use 'hrsh7th/vim-vsnip-integ'
 
-  -- use 'github/copilot.vim'
+  use 'github/copilot.vim'
   use 'sbdchd/neoformat'
 
   -- edit

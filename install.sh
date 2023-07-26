@@ -32,7 +32,7 @@ curl -L https://iterm2.com/shell_integration/zsh \
 -o ~/.iterm2_shell_integration.zsh
 
 # copy dotfiles
-for file in .zshrc .zshrc.path .zshrc.custom .zplug .config .gitconfig .tmux.conf .ctags
+for file in .zshrc .zshrc.path .zshrc.custom .zplug .config .gitconfig .tmux.conf .ctags .enhancd
 do
   rm -rf $HOME/$file
   ln -s $PWD/$file $HOME/$file

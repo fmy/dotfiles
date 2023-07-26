@@ -30,7 +30,3 @@ zplug load
 [ -f ~/.zshrc.custom ] && source ~/.zshrc.custom
 [ -f ~/.zshrc.env ] && source ~/.zshrc.env
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
