@@ -31,7 +31,3 @@ export WASMER_DIR="/Users/fmy/.wasmer"
 
 # enhancd
 source ~/.enhancd/init.sh
-
-# ec2
-alias ec2-dev="aws ssm start-session --target i-0bd2d6c8edddffeb3 --profile meetsone-dev"
-AWS_DEFAULT_REGION=ap-northeast-1

@@ -6,8 +6,14 @@ return require('packer').startup({function(use)
   -- visualization
   use 'unblevable/quick-scope' -- show f/F target
   use 'nvim-lua/plenary.nvim'
-  use { 'nvim-telescope/telescope.nvim', tag = '0.1.0' }
-  use 'nvim-telescope/telescope-file-browser.nvim'
+  use { "nvim-telescope/telescope.nvim", tag = '0.1.4' }
+  use {
+    'nvim-telescope/telescope-file-browser.nvim',
+    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+    config = function ()
+      require('telescope').load_extension('file_browser')
+    end
+  }
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
@@ -23,7 +29,13 @@ return require('packer').startup({function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    run = 'make',
+    config = function()
+      require('telescope').load_extension('fzf')
+    end
+  }
 
   -- git
   use 'tpope/vim-fugitive' -- Gstatusなど

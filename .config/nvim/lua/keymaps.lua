@@ -54,7 +54,6 @@ keymap("n", "<Space>gb", ":Git blame<CR>", opts)
 keymap("n", "<Space>gh", ":GBrowse<CR>", opts)
 
 -- telescope
-require('telescope').load_extension('fzf')
 local builtin = require('telescope.builtin')
 local extensions = require('telescope').extensions
 vim.keymap.set("n", "<Space>fs", builtin.grep_string, opts)
@@ -62,3 +61,6 @@ vim.keymap.set("n", "<Space>fd", builtin.lsp_references, opts)
 keymap("n", "<Space>fh", "<C-u>:Telescope frecency workspace=CWD<CR>", opts)
 vim.keymap.set("n", "<Space>ff", extensions.file_browser.file_browser, opts)
 vim.keymap.set("n", "<Space>fh", extensions.frecency.frecency, opts)
+-- telescope search
+keymap("n", "<Space>s", "<C-u>:Telescope find_files find_command=rg,--no-ignore-dot,--hidden,-g,!.git/,--files<cr>", opts)
+

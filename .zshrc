@@ -30,3 +30,18 @@ zplug load
 [ -f ~/.zshrc.custom ] && source ~/.zshrc.custom
 [ -f ~/.zshrc.env ] && source ~/.zshrc.env
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Zscalerの中間証明書を利用
+export NODE_EXTRA_CA_CERTS=/Applications/Zscaler/cert/ZscalerRootCertificate-2048-SHA256.crt
+
+# bun completions
+[ -s "/Users/fkarasawa/.bun/_bun" ] && source "/Users/fkarasawa/.bun/_bun"
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+export WORDCHARS="*?_-[]~=&;!#$%^(){}<>"

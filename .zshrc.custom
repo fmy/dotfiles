@@ -35,8 +35,9 @@ alias gbdd='() { \
 }'
 alias curltime='curl -w "@$HOME/.curl-format.txt" -s -o /dev/null '
 
-alias ec2-prod='aws ssm start-session --target i-0082bd2d7259086c7 --profile meetsone-prod'
-alias ec2-dev='aws ssm start-session --target i-0bd2d6c8edddffeb3 --profile meetsone-dev'
+export AWS_DEFAULT_REGION="ap-northeast-1"
+alias ec2-prod='aws ssm start-session --target i-0f4119cd0ecc2cd70 --profile meetsone-prod'
+alias ec2-dev='aws ssm start-session --target i-01381d8bbcee0c916 --profile meetsone-dev'
 
 # fzf and ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
@@ -89,6 +90,11 @@ function s() {
   test -n "$filepath" && eval "vim '$filepath'"
 }
 
+function f() {
+  local filepath=$(find . -type f -name "*$@*" | fzf)
+  test -n "$filepath" && eval "open '$filepath'"
+}
+
 function ghq-fzf() {
   local dir=$(ghq list | fzf)
   if [ -n "$dir" ]; then
@@ -114,6 +120,10 @@ if zplug check b4b4r07/enhancd; then
 fi
 
 # edit command line with vim
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '^T' edit-command-line
+# autoload -U edit-command-line
+# zle -N edit-command-line
+# bindkey '^T' edit-command-line
+
+# kubectl
+source <(kubectl completion zsh)
+alias k=kubectl
